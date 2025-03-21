@@ -1,0 +1,17 @@
+services:
+    db:
+      image: postgres:14.5
+      environment:
+        POSTGRES_PASSWORD: example
+
+    frontend:
+      build: 
+        context: ./frontend
+        dockerfile: ./Dockerfile.frontend
+      ports:
+        - "4000:4000"
+      volumes:
+        - ./frontend/src:/app/src:ro
+        - /app/node_modules
+
+

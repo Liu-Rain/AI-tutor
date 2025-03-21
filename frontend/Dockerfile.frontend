@@ -1,0 +1,11 @@
+FROM node:20-alpine
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm install axios
+RUN npm install cors
+RUN npm install react-router-dom
+RUN npm install @xyflow/react
+RUN npm install recharts
+EXPOSE 4000
+CMD npm run dev
