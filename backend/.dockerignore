@@ -1,0 +1,34 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment files
+.env
+*.env
+
+# Virtual environment folders
+venv/
+.env/
+.venv/
+
+# Git and other VCS
+.git/
+.gitignore
+
+# macOS specific
+.DS_Store
+
+# IDE/editor configs
+.vscode/
+.idea/
+
+# Docker stuff
+Dockerfile
+.dockerignore
+
+# Logs
+*.log
+
+# Tests and other dev-only folders (optional)
+tests/

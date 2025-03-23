@@ -13,5 +13,14 @@ services:
       volumes:
         - ./frontend/src:/app/src:ro
         - /app/node_modules
+    backend:
+      build: 
+        context: ./backend
+        dockerfile: ./Dockerfile.backend
+      ports:
+        - "8000:8000"
+      volumes:
+        - ./backend:/app:ro
+
 
 
