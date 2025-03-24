@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { Chat } from "./components/Chat/chat";
+import styles from "./App.module.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [messages, setMessages] = useState(MESSAGES);
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className={styles.App}>
+      <header className={styles.Header}>
+        <img className={styles.Logo} src="/aitutor.png" alt="AI Tutor" />
+        <h2 className={styles.Title}>AI Tutor</h2>
+      </header>
+      <div className={styles.ChatContainer}>
+        <Chat messages={messages} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
+const MESSAGES = [
+  {
+    role: "user",
+    content: "Hello!",
+  },
+  {
+    role: "assistant",
+    content: "Hi! How can I help you today?",
+  },
+];
 
-export default App
+export default App;
