@@ -1,8 +1,24 @@
 services:
     db:
       image: postgres:14.5
+
       environment:
-        POSTGRES_PASSWORD: example
+        POSTGRES_USER: user
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: mydatabase
+
+      ports:
+        - "5432:5432"
+      volumes:
+        - pgdata:/var/lib/postgresql/data
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U postgres"]
+        interval: 5s
+        retries: 3
+
+
+
+      
 
     frontend:
       build: 
@@ -13,14 +29,24 @@ services:
       volumes:
         - ./frontend/src:/app/src:ro
         - /app/node_modules
+ 
     backend:
       build: 
         context: ./backend
         dockerfile: ./Dockerfile.backend
+      environment:
+        FLASK_DEBUG: 1
       ports:
         - "8000:8000"
       volumes:
         - ./backend:/app:ro
+      depends_on:
+        db:
+          condition: service_healthy
 
+      
+
+volumes:
+  pgdata:
 
 
