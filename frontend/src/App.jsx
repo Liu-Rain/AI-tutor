@@ -3,6 +3,8 @@ import { Chat } from "./components/Chat/chat";
 import { Assistant } from "./aiassistants/google";
 import styles from "./App.module.css";
 import { Controls } from "./components/Controls/Controls";
+import Choosechapters from "./components/Choosechapters/Choosechapters";
+import Chathistory from "./components/Chathistory/Chathistory";
 
 function App() {
   const assistant = new Assistant();
@@ -29,10 +31,18 @@ function App() {
         <img className={styles.Logo} src="/aitutor.png" alt="AI Tutor" />
         <h2 className={styles.Title}>AI Tutor</h2>
       </header>
-      <div className={styles.ChatContainer}>
-        <Chat messages={messages} />
+      <div className={styles.Main}>
+        <div className={styles.Sidebar}>
+          <Choosechapters />
+          <Chathistory />
+        </div>
+        <div className={styles.ChatContent}>
+          <div className={styles.ChatContainer}>
+            <Chat messages={messages} />
+          </div>
+          <Controls onSend={handleContentSend} />
+        </div>
       </div>
-      <Controls onSend={handleContentSend} />
     </div>
   );
 }
