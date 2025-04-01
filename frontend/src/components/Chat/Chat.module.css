@@ -1,0 +1,39 @@
+.Chat {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: 16px;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Message {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: all 0.2s ease;
+
+  &[data-role="user"] {
+    align-self: flex-end;
+    background: #2196f3;
+    color: white;
+  }
+
+  &[data-role="assistant"] {
+    align-self: flex-start;
+    background: #f5f5f5;
+    color: #333;
+  }
+
+  &[data-role="system"] {
+    align-self: center;
+    background: #ffebee;
+    color: #d32f2f;
+    font-size: 12px;
+  }
+}
