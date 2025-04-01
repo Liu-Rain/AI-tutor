@@ -1,26 +1,23 @@
 services:
-    db:
-      image: postgres:14.5
-      environment:
-        POSTGRES_PASSWORD: example
+  db:
+    image: postgres:14.5
+    environment:
+      POSTGRES_PASSWORD: example
 
-    frontend:
-      build: 
-        context: ./frontend
-        dockerfile: ./Dockerfile.frontend
-      ports:
-        - "4000:4000"
-      volumes:
-        - ./frontend/src:/app/src:ro
-        - /app/node_modules
-    backend:
-      build: 
-        context: ./backend
-        dockerfile: ./Dockerfile.backend
-      ports:
-        - "8000:8000"
-      volumes:
-        - ./backend:/app:ro
-
-
-
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile.frontend
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile.backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app:ro
