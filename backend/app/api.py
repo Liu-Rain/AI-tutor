@@ -2,6 +2,7 @@ import requests
 from flask import Blueprint, request, jsonify
 from app import db
 import pandas as pd
+import json
 
 api_bp = Blueprint('api', __name__)
 
@@ -38,9 +39,15 @@ def test():
     })
     return embeddings
 
-@api_bp.route('/user_message/<message>', methods=['GET'])
-def receive_user_message():
+@api_bp.route('/user_message', methods=['GET'])
+def receive_user_message(message):
     data = request.get_json()
+    if data:
+        return "message recieve"
+    else:
+        return "fail to recieve"
+
+
 
 
 
