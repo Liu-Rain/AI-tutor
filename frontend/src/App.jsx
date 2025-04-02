@@ -16,7 +16,7 @@ function App() {
     addMessage({ content, role: "user" });
 
     try {
-      const result = await assistant.chat(content);
+      const result = await assistant.chat(content, messages);
       addMessage({
         content: result,
         role: "assistant",
