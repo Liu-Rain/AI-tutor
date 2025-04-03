@@ -3,6 +3,8 @@ from flask import Blueprint, request, jsonify
 from app import db
 import pandas as pd
 import json
+from app.model import User, Message
+
 
 api_bp = Blueprint('api', __name__)
 
@@ -40,7 +42,7 @@ def test():
     return embeddings
 
 @api_bp.route('/user_message', methods=['GET'])
-def receive_user_message(message):
+def receive_user_message():
     data = request.get_json()
     if data:
         return "message recieve"
@@ -48,6 +50,49 @@ def receive_user_message(message):
         return "fail to recieve"
 
 
+
+@api_bp.route('/users', methods=['POST'])
+def create_user():
+    data = request.json
+    user = User(name=data['name'])
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({'id': user.id, 'name': user.name}), 201
+
+@api_bp.route('/messages', methods=['POST'])
+def send_message():
+    data = request.json
+    msg = Message(sender=data['sender'], recipient=data['recipient'], content=data['content'])
+    db.session.add(msg)
+    db.session.commit()
+    return jsonify({'id': msg.id, 'timestamp': msg.timestamp.isoformat()}), 201
+
+@api_bp.route('/messages/<int:user_id>', methods=['GET'])
+def get_messages(user_id):
+    messages = Message.query.filter((Message.sender == user_id) | (Message.recipient == user_id)).all()
+    return jsonify([{
+        'id': m.id,
+        'from': m.sender,
+        'to': m.recipient,
+        'content': m.content,
+        'timestamp': m.timestamp.isoformat()
+    } for m in messages])
+
+
+
+
+
+@api_bp.route('/test_users/<name>', methods=['GET'])
+def create_user_test(name):
+    user = User(name=name)
+    db.session.add(user)
+    db.session.commit()
+    return jsonify(message=f'User {name} added successfully!')
+
+@api_bp.route('/get_users', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    return jsonify({user.id: {"name": user.name, "id": user.id} for user in users})
 
 
 
